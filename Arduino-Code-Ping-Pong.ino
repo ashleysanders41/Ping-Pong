@@ -8,17 +8,17 @@
  */
 
 void setup() {
-  Serial.begin(9600);     // initialize serial communication
+  Serial.begin(9600);     // my serial port
 }
 
 void loop() {
   // read the inputs
 
-  int leftPaddle = analogRead(A0);
-  int rightPaddle = analogRead(A1);
+  int leftPaddle = analogRead(A0); //left paddle is connected to Analog 0
+  int rightPaddle = analogRead(A1); // right paddle is connected to Analog 1
 
-  Serial.print(leftPaddle);                
-  Serial.print(",");                   // add a comma
-  Serial.println(rightPaddle);                
-  delay(10);                           // delay before sending the next set
+  Serial.print(leftPaddle);    //show left paddle            
+  Serial.print(",");                   
+  Serial.println(rightPaddle); //show right paddle               
+  delay(10);                   // delay before startingt the next game
 }
