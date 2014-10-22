@@ -73,63 +73,63 @@ void draw() {
 }
 
 
-void serialEvent(Serial thisPort) {
+void serialEvent(Serial thisPort) { // port in which arduino and processing are working together
 
  
- String inputString = thisPort.readStringUntil('\n');
+ String inputString = thisPort.readStringUntil('\n'); // reads string of info until it is reset
 
- if (inputString != null)
+ if (inputString != null) // if there is nothing in the string, reset
  {
   
-   inputString = trim(inputString);
+   inputString = trim(inputString); // trim string if nothing is happening
 
    
-   int sensors[] = int(split(inputString, ','));
+   int sensors[] = int(split(inputString, ',')); //sensors are split, but both are read the same way
   // xDirection++;
   // yDirection++;
    
-   if (sensors.length == 2) {
-     leftPaddle.y = int(map(sensors[0], 0, 425, 0, height - leftPaddle.height));
-     rightPaddle.y = int(map(sensors[1], 0,425 , 0, height - rightPaddle.height));
+   if (sensors.length == 2) { 
+     leftPaddle.y = int(map(sensors[0], 0, 425, 0, height - leftPaddle.height)); // the height in which the left paddle can go
+     rightPaddle.y = int(map(sensors[1], 0,425 , 0, height - rightPaddle.height)); // the height in which the right paddle can go
    }
  }
 }
 
-void animateBall() {
- if (leftPaddle.contains(xPos, yPos) ||    
- rightPaddle.contains(xPos, yPos)) {       
-   xDirection = -xDirection;   
+void animateBall() { //create a ball
+ if (leftPaddle.contains(xPos, yPos) || // if left paddle has missed the ball
+ rightPaddle.contains(xPos, yPos)) {  // if the right paddle has missed the ball      
+   xDirection = -xDirection; // both postions are equal on both sides 
                 
  }
 
  
- if (xPos < 0) 
+ if (xPos < 0) // If left paddle misses the ball
  {     
-   rightScore++;     
-   resetBall();   
+   rightScore++; // right side will score a point   
+   resetBall();  // resets ball to the middle 
  }  
- if (xPos > width) 
+ if (xPos > width) // If right padddle misses the ball
  {
-   leftScore++;
-   resetBall();
+   leftScore++; // the left side will score
+   resetBall(); // the ball resets to the middle
  }
  
- if ((yPos <= 0) || (yPos >=height)) {
+ if ((yPos <= 0) || (yPos >=height)) { //
    yDirection = -yDirection;
  }
  
 
  
- xPos = xPos + xDirection;
- yPos = yPos + yDirection;
+ xPos = xPos + xDirection; // the postion of the paddle is dependent upon the player
+ yPos = yPos + yDirection; // the position of the paddle is dependednt upon the player
 
  
- ellipse(xPos, yPos, ballSize, ballSize);
+ ellipse(xPos, yPos, ballSize, ballSize); // creates the ball size and postion
 }
 
-void resetBall()
+void resetBall() // resets the ball
 {
  
- xPos = width/2;
- yPos = height/2;
+ xPos = width/2; // the width of the paddle divided by two (for both sides)
+ yPos = height/2; // the height of the paddle divided by two (for both sides)
 }
